@@ -14,76 +14,68 @@
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    /* Primary color - blue accent */
-    --primary: 187 100% 35.7%;
+    --primary: 217 71% 53%;  /* Blue color */
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 14 100% 57%;  /* Orange accent */
+    --accent: 25 95% 53%;    /* Orange accent */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 187 100% 35.7%;
-    /* Pink accent for special elements */
-    --pink-accent: 328 85% 58%;
-    /* Chart colors for dashboard */
-    --chart-1: 187 100% 35.7%;  /* Blue #00ADB5 */
-    --chart-2: 14 100% 57%;    /* Orange #FF5722 */
-    --chart-3: 328 85% 58%;   /* Pink */
-    --chart-4: 230 70% 40%;   /* Purple */
-    --chart-5: 180 75% 35%;   /* Teal */
+    --ring: 217 71% 53%;
+    --chart-1: 217 71% 53%;  /* Blue */
+    --chart-2: 25 95% 53%;   /* Orange */
+    --chart-3: 340 82% 60%;  /* Pink */
+    --chart-4: 160 84% 39%;  /* Green */
+    --chart-5: 48 96% 53%;   /* Yellow */
     --radius: 0.5rem;
-    
-    /* Dark sidebar */
-    --sidebar-background: 0 0% 0%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 187 100% 35.7%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 10%;
-    --sidebar-ring: 187 100% 35.7%;
+    --sidebar-background: 215 28% 17%;  /* Dark blue sidebar */
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 217 71% 53%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 225 25% 23%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 215 28% 17%;
+    --sidebar-ring: 217 71% 53%;
   }
-  
+
   .dark {
-    --background: 0 0% 7%;
+    --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 10%;
+    --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 7%;
+    --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 187 100% 35.7%;
+    --primary: 217 71% 53%;  /* Blue color */
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 14.9%;
+    --secondary: 217 33% 17%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
-    --accent: 14 100% 57%;
+    --accent: 25 95% 53%;    /* Orange accent */
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
-    --ring: 187 100% 35.7%;
-    --pink-accent: 328 85% 58%;
-    --chart-1: 187 100% 35.7%;
-    --chart-2: 14 100% 57%;
-    --chart-3: 328 85% 70%;
-    --chart-4: 230 70% 60%;
-    --chart-5: 180 75% 50%;
-    
-    --sidebar-background: 0 0% 0%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 187 100% 35.7%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 0 0% 10%;
-    --sidebar-ring: 187 100% 35.7%;
+    --ring: 217 71% 53%;
+    --chart-1: 217 71% 53%;  /* Blue */
+    --chart-2: 25 95% 53%;   /* Orange */
+    --chart-3: 340 82% 60%;  /* Pink */
+    --chart-4: 160 84% 39%;  /* Green */
+    --chart-5: 48 96% 53%;   /* Yellow */
+    --sidebar-background: 215 28% 17%;  /* Dark blue sidebar */
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 217 71% 53%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 225 25% 23%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 215 28% 17%;
+    --sidebar-ring: 217 71% 53%;
   }
 }
 
@@ -93,61 +85,39 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
   }
 }
 
-/* Custom animations */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
+@layer components {
+  .neumorph {
+    @apply bg-white rounded-xl shadow-[5px_5px_15px_rgba(0,0,0,0.1),-5px_-5px_15px_rgba(255,255,255,0.1)];
   }
-  50% {
-    opacity: 0.5;
+
+  .business-card {
+    @apply neumorph p-4 transition-all duration-200 hover:shadow-[8px_8px_20px_rgba(0,0,0,0.15),-8px_-8px_20px_rgba(255,255,255,0.15)] cursor-pointer;
   }
-}
+  
+  .sidebar {
+    @apply fixed left-0 top-0 z-30 h-screen w-64 bg-sidebar text-sidebar-foreground flex flex-col;
+  }
 
-.animate-pulse-slow {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-foreground transition-colors;
+  }
 
-/* Custom styles for specific components */
-.business-card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+  .sidebar-link.active {
+    @apply bg-sidebar-accent text-sidebar-foreground border-l-4 border-primary;
+  }
 
-.business-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-}
+  .search-input {
+    @apply w-full px-4 py-2 bg-white/10 border border-border/30 rounded-lg text-foreground;
+  }
 
-.level-indicator {
-  height: 4px;
-  @apply rounded-full;
-}
+  .progress-bar {
+    @apply h-2 w-full bg-muted rounded-full overflow-hidden;
+  }
 
-.level-1 {
-  @apply bg-blue-500;
-}
-
-.level-2 {
-  @apply bg-green-500;
-}
-
-.level-3 {
-  @apply bg-amber-500;
-}
-
-.level-4 {
-  @apply bg-pink-500;
-}
-
-/* Progress bar styles */
-.progress-bar-bg {
-  @apply bg-gray-200 dark:bg-gray-700 rounded-full h-2;
-}
-
-.progress-bar-fill {
-  @apply h-full rounded-full;
-  transition: width 0.3s ease-in-out;
+  .progress-value {
+    @apply h-full rounded-full transition-all duration-300;
+  }
 }

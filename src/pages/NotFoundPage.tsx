@@ -1,20 +1,22 @@
-import { useNavigate } from 'react-router-dom'
-import { Button } from '@/components/ui/button'
+import { AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 function NotFoundPage() {
-  const navigate = useNavigate()
-
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-6xl mb-4">404</h1>
-        <p className="mb-6">Page not found</p>
-        <Button onClick={() => navigate('/')} variant="link">
-          Return home
-        </Button>
+    <div className="min-h-screen flex flex-col items-center justify-center gap-6 p-4">
+      <div className="flex items-center flex-col gap-2 text-center">
+        <AlertCircle className="w-16 h-16 text-muted-foreground mb-2" />
+        <h1 className="text-4xl font-bold">404 - Página no encontrada</h1>
+        <p className="text-muted-foreground max-w-md mt-2">
+          La página que estás buscando no existe o ha sido movida a otra ubicación.
+        </p>
       </div>
+      <Button asChild size="lg" className="mt-4">
+        <Link to="/">Volver al Panel</Link>
+      </Button>
     </div>
-  )
+  );
 }
 
-export default NotFoundPage 
+export default NotFoundPage;

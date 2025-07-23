@@ -1,123 +1,95 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Building2,
-  Store,
-  Bell,
-  LogOut,
-  ChevronLeft,
-  Crown
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { 
+  LayoutDashboard, 
+  Building2, 
+  Building, 
+  LogOut, 
+  Bell 
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useIsMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-interface SidebarProps {
-  collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
+interface SidebarLinkProps {
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+  isActive: boolean;
 }
 
-const Sidebar: FC<SidebarProps> = ({ collapsed, setCollapsed }) => {
-  const isMobile = useIsMobile();
+const SidebarLink = ({ to, icon, label, isActive }: SidebarLinkProps) => {
+  return (
+    <Link 
+      to={to} 
+      className={cn("sidebar-link", isActive && "active")}
+    >
+      {icon}
+      <span>{label}</span>
+    </Link>
+  );
+};
 
-  const navItems = [
-    {
-      label: "Panel",
-      icon: <LayoutDashboard size={20} />,
-      href: "/",
-      active: true,
-    },
-    {
-      label: "Organizaciones",
-      icon: <Building2 size={20} />,
-      href: "/organizations",
-      active: false,
-    },
-    {
-      label: "Negocios",
-      icon: <Store size={20} />,
-      href: "/businesses",
-      active: false,
-    },
-  ];
+export function Sidebar() {
+  const location = useLocation();
+  const [notifications] = useState(3);
 
   return (
-    <aside
-      className={cn(
-        "flex flex-col h-screen bg-black text-white border-r border-sidebar-border transition-all duration-300",
-        collapsed ? "w-16" : "w-64"
-      )}
-    >
-      {/* Sidebar header with logo */}
-      <div className="flex items-center justify-between h-16 px-4 border-b border-sidebar-border">
-        {!collapsed && (
-          <div className="flex items-center font-bold text-xl text-white">
-            <Crown size={24} className="mr-2" />
-            ATREUS
-          </div>
-        )}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-white hover:bg-[#1F1F1F]"
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          <ChevronLeft
-            size={20}
-            className={cn("transition-transform", collapsed && "rotate-180")}
-          />
-        </Button>
+    <aside className="sidebar">
+      <div className="p-4 border-b border-white/10">
+        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+          <Building2 className="h-8 w-8" />
+          ZEUS
+        </h1>
+        <p className="text-xs text-white/60 mt-1">Business Hub</p>
       </div>
 
-      {/* Navigation links */}
-      <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
-        {navItems.map((item) => (
-          <Link
-            key={item.label}
-            to={item.href}
-            className={cn(
-              "flex items-center px-2 py-2 rounded-md transition-colors",
-              item.active
-                ? "bg-[#1F1F1F] text-[#00ADB5]"
-                : "text-white hover:bg-[#1F1F1F] hover:text-[#00ADB5]"
-            )}
-          >
-            <span className="flex items-center justify-center">{item.icon}</span>
-            {!collapsed && <span className="ml-3">{item.label}</span>}
-          </Link>
-        ))}
+      <nav className="flex-1 py-4">
+        <SidebarLink 
+          to="/" 
+          icon={<LayoutDashboard size={20} />} 
+          label="Panel" 
+          isActive={location.pathname === "/"}
+        />
+        <SidebarLink 
+          to="/organizations" 
+          icon={<Building2 size={20} />} 
+          label="Organizaciones" 
+          isActive={location.pathname === "/organizations"}
+        />
+        <SidebarLink 
+          to="/businesses" 
+          icon={<Building size={20} />} 
+          label="Negocios" 
+          isActive={location.pathname.startsWith("/businesses")}
+        />
       </nav>
 
-      {/* User section */}
-      <div className="p-4 border-t border-sidebar-border">
-        <div className="flex items-center">
-          <div className="flex-shrink-0">
-            <div className="w-8 h-8 rounded-full bg-[#00ADB5] flex items-center justify-center text-white">
-              A
-            </div>
+      <div className="border-t border-white/10 p-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Avatar>
+            <AvatarImage src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop" />
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="text-sm font-medium">Juan Pérez</p>
+            <p className="text-xs text-white/60">Admin</p>
           </div>
-          {!collapsed && (
-            <div className="ml-3">
-              <p className="text-sm font-medium">Admin</p>
-            </div>
-          )}
         </div>
-
-        {/* Footer icons */}
-        <div className={cn("flex mt-4", collapsed ? "justify-center" : "justify-between")}>
-          <Button variant="ghost" size="icon" className="text-white hover:bg-[#1F1F1F] hover:text-[#00ADB5]">
-            <Bell size={18} />
-          </Button>
-          {!collapsed && (
-            <Button variant="ghost" size="icon" className="text-white hover:bg-[#1F1F1F] hover:text-[#00ADB5]">
-              <LogOut size={18} />
-            </Button>
-          )}
+        
+        <div className="flex items-center gap-3">
+          <button className="relative">
+            <Bell size={20} className="text-white/70 hover:text-white transition-colors" />
+            {notifications > 0 && (
+              <span className="absolute -top-1 -right-1 bg-accent rounded-full text-[10px] w-4 h-4 flex items-center justify-center">
+                {notifications}
+              </span>
+            )}
+          </button>
+          <button>
+            <LogOut size={20} className="text-white/70 hover:text-white transition-colors" />
+          </button>
         </div>
       </div>
     </aside>
   );
-};
-
-export default Sidebar;
+}
